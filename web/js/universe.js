@@ -6,19 +6,25 @@ function Universe(spaceviz, data) {
   var attributes, uniforms;
 
   this.init = function() {
+    // Load dependencies. Right now only texture.
+    new THREE.TextureLoader().load('images/cloud4.png', function(texture) {
+      setup(texture);
+    });
+  };
+
+  function setup(texture){
     var particles = new THREE.Geometry();
 
     attributes = {
-      brightness: {type: 'f', value: []},
       size: {type: 'f', value: []},
       r: {type: 'f', value: []},
       g: {type: 'f', value: []},
       b: {type: 'f', value: []},
-      pos: { type: 'v3', value: []}
+      pos: {type: 'v3', value: []}
     };
 
     uniforms = {
-      map: { type: 't', value: THREE.ImageUtils.loadTexture('images/cloud4.png') },
+      map: {type: 't', value: texture},
     };
 
     for (var i=0; i < data.length; i++) {
@@ -43,6 +49,7 @@ function Universe(spaceviz, data) {
       // add to mesh
       particles.vertices.push(point);
     }
+    console.log(particles);
 
     var particle_material = new THREE.ShaderMaterial({
       uniforms:       uniforms,
@@ -55,8 +62,7 @@ function Universe(spaceviz, data) {
     particle_material.transparent = true;
     particle_material.blending = THREE.AdditiveBlending;
 
-    var particle_system = new THREE.ParticleSystem(particles,
-                                                   particle_material);
+    var particle_system = new THREE.PointCloud(particles, particle_material);
     particle_system.frustumCulled = true;
     particle_system.sortParticles = false;
     spaceviz.getScene().add(particle_system);
