@@ -24,46 +24,34 @@
 
 <script type="x-vertex-shader" id="vertex-shader">
   attribute float size;
-  attribute float r;
-  attribute float g;
-  attribute float b;
+  attribute vec3 color;
 
-  attribute vec3 pos;
-
-  varying float vR;
-  varying float vG;
-  varying float vB;
+  varying vec3 vColor;
 
   void main() {
-    vR = r;
-    vG = g;
-    vB = b;
+    vColor = color;
 
-    vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+    vec4 mvPosition = modelViewMatrix * vec4(position, 1.0);
     gl_Position = projectionMatrix * mvPosition;
-    gl_PointSize = size;
+    gl_PointSize = size * (300.0 / -mvPosition.z);
   }
 
 </script>
 
 <script type="x-fragment-shader" id="fragment-shader">
-  varying float vR;
-  varying float vG;
-  varying float vB;
-
+  varying vec3 vColor;
   uniform sampler2D map;
 
   void main() {
     vec4 texel = texture2D(map, vec2(gl_PointCoord.x, 1.0 - gl_PointCoord.y));
     float alpha = texel.w;
-    gl_FragColor = vec4(vR, vG, vB, alpha);
+    gl_FragColor = vec4(vColor, alpha);
   }
 
 </script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r71/three.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r80/three.min.js"></script>
 <script src="js/vendor/three.js/Detector.js"></script>
 <script src="js/vendor/OrbitControls.js"></script>
-<script src="js/vendor/three.js/Detector.js"></script>
 <script src="data/processed.js"></script>
 <script src="js/spaceviz.js"></script>
 <script src="js/universe.js"></script>
