@@ -3,6 +3,7 @@
 var SPREAD_FACTOR = 100;
 
 function Universe(spaceviz, data) {
+
   var attributes, uniforms;
 
   this.init = function() {
@@ -49,11 +50,10 @@ function Universe(spaceviz, data) {
       // add to mesh
       particles.vertices.push(point);
     }
-    console.log(particles);
 
     var particle_material = new THREE.ShaderMaterial({
-      uniforms:       uniforms,
-      attributes:     attributes,
+      uniforms: uniforms,
+      attributes: attributes,
       vertexShader: document.getElementById('vertex-shader').textContent,
       fragmentShader: document.getElementById('fragment-shader').textContent
     });
