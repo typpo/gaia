@@ -1,69 +1,72 @@
 <html>
 <head>
-  <meta charset='UTF-8'>
+  <meta charset="UTF-8">
   <title>GAIA data</title>
   <style>
-    #frame {
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      z-index: 0;
-    }
-
-    #label {
-      position: absolute;
-      top: 15;
-      left: 15;
-      z-index: 1;
-      color: white;
-      font-family: sans-serif;
+    body {
+      background-color: #000;
     }
 
     #title {
       position: absolute;
-      top: 15;
-      right: 15;
-      z-index: 1;
-      color: white;
-      font-family: sans-serif;
+      top: 0;
+      left: 0;
+      color: #fff;
     }
   </style>
 </head>
 <body>
 
-<div id='frame'></div>
+<div id="container"></div>
 
-<div id='label'></div>
-<div id='title'>GAIA stars</div>
+<div id="label"></div>
+<div id="title">GAIA stars</div>
 
-<script src='https://cdn.rawgit.com/frewsxcv/graphosaurus/HEAD/dist/graphosaurus.js'></script>
-<script src='../data/processed.js'></script>
-<script>
-graph = G.graph({
-  nodeImage: 'images/cloud4.png',
-  nodeImageTransparent: true,
-  antialias: true,
-  bgColor: 'black',
-  edgeWidth: 1.5,
-  nodeSize: 6,
-  //hover: function (node) { $('#label').text('Solar system: ' + node.name); },
-});
+<script type="x-vertex-shader" id="vertex-shader">
+  attribute float size;
+  attribute float r;
+  attribute float g;
+  attribute float b;
 
-for (var i = 0; i < window.DATA.length; i++) {
-  var system = window.DATA[i];
-  var coords = system.slice(1,4);
+  attribute vec3 pos;
 
-  var node = G.node(coords, {
-    id: '' + i,
-    color: 0xffffff,
-  });
-  node.name = system[0];
-  node.addTo(graph);
-}
+  varying float vR;
+  varying float vG;
+  varying float vB;
 
-graph.renderIn('frame');
+  void main() {
+    vR = r;
+    vG = g;
+    vB = b;
+
+    vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+    gl_Position = projectionMatrix * mvPosition;
+    gl_PointSize = size;
+  }
+
 </script>
+
+<script type="x-fragment-shader" id="fragment-shader">
+  varying float vR;
+  varying float vG;
+  varying float vB;
+
+  uniform sampler2D map;
+
+  void main() {
+    vec4 texel = texture2D(map, vec2(gl_PointCoord.x, 1.0 - gl_PointCoord.y));
+    float alpha = texel.w;
+    gl_FragColor = vec4(vR, vG, vB, alpha);
+  }
+
+</script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r62/three.min.js"></script>
+<script src="js/vendor/three.js/Detector.js"></script>
+<script src="js/vendor/OB2.js"></script>
+<script src="js/vendor/three.js/Detector.js"></script>
+<script src="data/processed.js"></script>
+<script src="js/spaceviz.js"></script>
+<script src="js/universe.js"></script>
+<script src="js/main.js"></script>
 </body>
 </html>
