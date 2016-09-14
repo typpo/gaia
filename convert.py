@@ -12,16 +12,22 @@ def main():
             dec = float(row['dec'])
             # Conver to cartesian coords.
             # http://www.stargazing.net/kepler/rectang.html
+            X = math.cos(ra) * math.cos(dec)
+            Y = math.sin(ra) * math.cos(dec)
             Z = math.sin(dec)
-            XYZ = [math.cos(ra) * math.cos(dec), math.sin(ra) * math.cos(dec), Z]
-            results.append(XYZ)
+            name = row['tycho2_id'].strip()
+            if not name:
+                name = '?'
+            result = [name, X, Y, Z]
+            results.append(result)
 
-    with open('data/processed.json', 'w') as json_out:
-        json.dump(results, json_out)
+    with open('data/processed.js', 'w') as js_out:
+        js_out.write('window.DATA=')
+        js_out.write(json.dumps(results))
 
     with open('data/xyz.csv', 'w') as csv_out:
         for result in results:
-            csv_out.write('%f,%f,%f\n' % (result[0], result[1], result[2]))
+            csv_out.write('%f,%f,%f\n' % (result[1], result[2], result[3]))
 
 if __name__ == '__main__':
     main()

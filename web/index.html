@@ -1,0 +1,69 @@
+<html>
+<head>
+  <meta charset='UTF-8'>
+  <title>GAIA data</title>
+  <style>
+    #frame {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 0;
+    }
+
+    #label {
+      position: absolute;
+      top: 15;
+      left: 15;
+      z-index: 1;
+      color: white;
+      font-family: sans-serif;
+    }
+
+    #title {
+      position: absolute;
+      top: 15;
+      right: 15;
+      z-index: 1;
+      color: white;
+      font-family: sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+<div id='frame'></div>
+
+<div id='label'></div>
+<div id='title'>GAIA stars</div>
+
+<script src='https://cdn.rawgit.com/frewsxcv/graphosaurus/HEAD/dist/graphosaurus.js'></script>
+<script src='../data/processed.js'></script>
+<script>
+graph = G.graph({
+  nodeImage: 'images/cloud4.png',
+  nodeImageTransparent: true,
+  antialias: true,
+  bgColor: 'black',
+  edgeWidth: 1.5,
+  nodeSize: 6,
+  //hover: function (node) { $('#label').text('Solar system: ' + node.name); },
+});
+
+for (var i = 0; i < window.DATA.length; i++) {
+  var system = window.DATA[i];
+  var coords = system.slice(1,4);
+
+  var node = G.node(coords, {
+    id: '' + i,
+    color: 0xffffff,
+  });
+  node.name = system[0];
+  node.addTo(graph);
+}
+
+graph.renderIn('frame');
+</script>
+</body>
+</html>
