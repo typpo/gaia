@@ -25,8 +25,9 @@ function Universe(spaceviz, data) {
 
     for (var i=0, i3=0; i < data.length; i++, i3 += 3) {
       var datum = data[i];
-      var name = datum[0];
-      var pos = datum.slice(1, 4);
+      //var name = datum[0];
+      //var pos = datum.slice(1, 4);
+      var pos = datum.slice(0, 3);
 
       var x = pos[0] * SPREAD_FACTOR;
       var y = pos[1] * SPREAD_FACTOR;
