@@ -1,6 +1,6 @@
 'use strict';
 
-var SPREAD_FACTOR = 100;
+var SPREAD_FACTOR = 400;
 
 function Universe(spaceviz, data) {
 
@@ -41,7 +41,7 @@ function Universe(spaceviz, data) {
       colors[i3 + 1] = 255;
       colors[i3 + 2] = 255;
 
-      sizes[i] = Math.max(0.5, Math.min(10, count * 0.01));
+      sizes[i] = Math.max(0.5, Math.min(80, count * 0.1));
     }
 
     geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
