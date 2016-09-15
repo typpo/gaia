@@ -1,6 +1,6 @@
 'use strict';
 
-var SPREAD_FACTOR = 400;
+var SPREAD_FACTOR = 800;
 
 function Universe(spaceviz, data) {
 

@@ -50,13 +50,13 @@ function GenericSpaceViz(containerId) {
     var cameraW	= cameraH / window.innerHeight * window.innerWidth;
     window.camera = camera = new THREE.PerspectiveCamera(
         75, window.innerWidth / window.innerHeight, 1, 5000);
-    camera.position.set(592, 600, 483)
+    camera.position.set(25, 25, 25)
     camera.center = new THREE.Vector3(0, 0, 0);
 
     scene.add(camera);
 
     window.cc = cameraControls = new THREE.OrbitControls(camera);
-    cameraControls.maxDistance = 2700;
+    cameraControls.maxDistance = 1000;
     cameraControls.autoRotate = true;
     cameraControls.autoRotateSpeed = 0.3;
 
