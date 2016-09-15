@@ -58,7 +58,7 @@ function GenericSpaceViz(containerId) {
     window.cc = cameraControls = new THREE.OrbitControls(camera);
     cameraControls.maxDistance = 2700;
     cameraControls.autoRotate = true;
-    cameraControls.autoRotateSpeed = 0.65;
+    cameraControls.autoRotateSpeed = 0.3;
 
     // Rendering stuff
     window.renderer = renderer;
