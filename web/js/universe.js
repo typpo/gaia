@@ -37,16 +37,17 @@ function Universe(spaceviz, data) {
       positions[i3 + 1] = y;
       positions[i3 + 2] = z;
 
-      colors[i3 + 0] = 255;
-      colors[i3 + 1] = 255;
-      colors[i3 + 2] = 255;
+      var color = getColor();
+      colors[i3 + 0] = color.r / 255;
+      colors[i3 + 1] = color.g / 255;
+      colors[i3 + 2] = color.b / 255;
 
       sizes[i] = Math.max(0.5, Math.min(80, count * 0.1));
     }
 
-    geometry.addAttribute( 'position', new THREE.BufferAttribute( positions, 3 ) );
-    geometry.addAttribute( 'color', new THREE.BufferAttribute( colors, 3 ) );
-    geometry.addAttribute( 'size', new THREE.BufferAttribute( sizes, 1 ) );
+    geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
+    geometry.addAttribute('color', new THREE.BufferAttribute(colors, 3));
+    geometry.addAttribute('size', new THREE.BufferAttribute(sizes, 1));
 
     var particle_material = new THREE.ShaderMaterial({
       uniforms: uniforms,
@@ -63,4 +64,45 @@ function Universe(spaceviz, data) {
     particle_system.sortParticles = false;
     spaceviz.getScene().add(particle_system);
   }
+}
+
+function getColor() {
+    var rgb;
+    var lumpct = Math.random();
+    if (lumpct > .8) {
+      // bluish
+      rgb = hexToRgb(getColorFromPercent(lumpct, 0xADADFF, 0xffcccc));
+    } else if (lumpct > .2) {
+      // yellowish
+      // TODO get rid of green
+      rgb = hexToRgb(getColorFromPercent(lumpct, 0xFFFF75, 0xE6E65C));
+    } else {
+      // reddish
+      rgb = hexToRgb(getColorFromPercent(lumpct, 0xFFD1B2, 0xFFA366));
+    }
+    return rgb;
+}
+
+function getColorFromPercent(value, highColor, lowColor) {
+  var r = highColor >> 16;
+  var g = highColor >> 8 & 0xFF;
+  var b = highColor & 0xFF;
+
+  r += ((lowColor >> 16) - r) * value;
+  g += ((lowColor >> 8 & 0xFF) - g) * value;
+  b += ((lowColor & 0xFF) - b) * value;
+
+  return (r << 16 | g << 8 | b);
+}
+
+function hexToRgb(hex) {
+  var bigint = parseInt(hex, 16);
+  var r = (bigint >> 16) & 255;
+  var g = (bigint >> 8) & 255;
+  var b = bigint & 255;
+  return {
+    'r': r,
+    'g': g,
+    'b': b
+  };
 }
