@@ -11,9 +11,9 @@ import msgpack
 ROUNDING_AMOUNT = 0.05
 
 def randomize(coord, offset=ROUNDING_AMOUNT*2):
-    return (coord[0] * random.uniform(-offset, offset),
-            coord[1] * random.uniform(-offset, offset),
-            coord[2] * random.uniform(-offset, offset))
+    return (coord[0] + random.uniform(-offset, offset),
+            coord[1] + random.uniform(-offset, offset),
+            coord[2] + random.uniform(-offset, offset))
 
 def doround(x, increment=ROUNDING_AMOUNT):
     # Round to nearest floating point, ensuring only significant digits.
