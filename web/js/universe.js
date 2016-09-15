@@ -71,11 +71,13 @@ function getColor() {
     var lumpct = Math.random();
     if (lumpct > .8) {
       // bluish
-      rgb = hexToRgb(getColorFromPercent(lumpct, 0xADADFF, 0xffcccc));
+      //rgb = hexToRgb(getColorFromPercent(lumpct, 0xADADFF, 0xffcccc));
+      rgb = hexToRgb(0xADADFF);
     } else if (lumpct > .2) {
       // yellowish
       // TODO get rid of green
-      rgb = hexToRgb(getColorFromPercent(lumpct, 0xFFFF75, 0xE6E65C));
+      // rgb = hexToRgb(getColorFromPercent(lumpct, 0xFFFF75, 0xE6E65C));
+      rgb = hexToRgb(0xFFFF75, 0xE6E65C);
     } else {
       // reddish
       rgb = hexToRgb(getColorFromPercent(lumpct, 0xFFD1B2, 0xFFA366));
