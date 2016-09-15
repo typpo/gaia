@@ -6,6 +6,8 @@ import random
 
 from collections import defaultdict
 
+import msgpack
+
 ROUNDING_AMOUNT = 0.05
 
 def randomize(coord, offset=ROUNDING_AMOUNT*2):
@@ -64,12 +66,16 @@ def main():
 
     print 'Writing...'
 
+    flattened = []
+    for coord, count in results.iteritems():
+        flattened.append(list(randomize(coord)) + [count])
+
     with open('data/processed.js', 'w') as js_out:
         js_out.write('window.DATA=')
-        flattened = []
-        for coord, count in results.iteritems():
-            flattened.append(list(randomize(coord)) + [count])
         js_out.write(json.dumps(flattened))
+
+    with open('data/processed.msgpack', 'wb') as mp_out:
+        mp_out.write(msgpack.packb(flattened))
 
     #with open('data/xyz.csv', 'w') as csv_out:
     #    for result in results:
