@@ -6,7 +6,7 @@ import random
 
 from collections import defaultdict
 
-import msgpack
+#import msgpack
 
 ROUNDING_AMOUNT = 0.05
 
@@ -74,8 +74,8 @@ def main():
         js_out.write('window.DATA=')
         js_out.write(json.dumps(flattened))
 
-    with open('data/processed.msgpack', 'wb') as mp_out:
-        mp_out.write(msgpack.packb(flattened))
+    #with open('data/processed.msgpack', 'wb') as mp_out:
+    #    mp_out.write(msgpack.packb(flattened))
 
     #with open('data/xyz.csv', 'w') as csv_out:
     #    for result in results:
