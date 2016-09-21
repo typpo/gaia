@@ -8,7 +8,7 @@ function Universe(spaceviz, data) {
 
   this.init = function() {
     // Load dependencies. Right now only texture.
-    new THREE.TextureLoader().load('images/cloud4.png', function(texture) {
+    new THREE.TextureLoader().load('web/images/cloud4.png', function(texture) {
       setup(texture);
     });
   };
