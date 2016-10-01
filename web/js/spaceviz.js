@@ -50,7 +50,7 @@ function GenericSpaceViz(containerId) {
     var cameraW	= cameraH / window.innerHeight * window.innerWidth;
     window.camera = camera = new THREE.PerspectiveCamera(
         75, window.innerWidth / window.innerHeight, 1, 5000);
-    camera.position.set(25, 25, 25)
+    camera.position.set(15, 15, 15)
     camera.center = new THREE.Vector3(0, 0, 0);
 
     scene.add(camera);
