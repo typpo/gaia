@@ -1,4 +1,6 @@
-To run:
+# GAIA visualization
+
+### Running locally
 
 1) Download data files: `data/download_tgas.sh`
 
@@ -8,6 +10,16 @@ To run:
 
 4) Visit http://localhost:8000
 
+### Requirements
+
+Python 2.7
+
+### Preview
+
 ![](https://i.imgur.com/ufrjxbH.png)
 
 ![](https://thumbs.gfycat.com/EmbellishedNegativeArachnid-max-1mb.gif)
+
+### License
+
+MIT (see LICENSE file)
