@@ -2,7 +2,7 @@ To run:
 
 1) Download data files: `data/download_tgas.sh`
 
-2) Compress the data points futher: `python convert.py`
+2) Compress the data points so that they can render in the browser: `python convert.py`
 
 3) Start a server: `python -m SimpleHTTPServer`
 
