@@ -54,11 +54,11 @@ def main():
                 X = math.cos(ra) * math.cos(dec) * parallax
                 Y = math.sin(ra) * math.cos(dec) * parallax
                 Z = math.sin(dec) * parallax
+
+                # Group nearby points together, and keep track of the number of
+                # points in the group.
                 coord = (doround(X), doround(Y), doround(Z))
                 results[coord] += 1
-                #name = row['tycho2_id'].strip()
-                #if not name:
-                #    name = '?'
 
     print 'Saved', len(results), 'of', count
 
@@ -66,6 +66,9 @@ def main():
 
     flattened = []
     for coord, count in results.iteritems():
+        # Slightly randomize the coordinates within the range of the previous
+        # rounding. Otherwise the point "cloud" will appear grid like.
+        # grid-like. Visually, this shouldn't make much of a difference.
         flattened.append(list(randomize(coord)) + [count])
 
     with open('data/processed.js', 'w') as js_out:
