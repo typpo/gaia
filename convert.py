@@ -6,6 +6,8 @@ import random
 
 from collections import defaultdict
 
+# Decrease for more stars/larger output file/higher visualization GPU
+# requirements.
 ROUNDING_AMOUNT = 0.05
 
 def randomize(coord, offset=ROUNDING_AMOUNT*2):
