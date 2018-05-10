@@ -42,7 +42,7 @@ function Universe(spaceviz, data) {
       colors[i3 + 1] = color.g / 255;
       colors[i3 + 2] = color.b / 255;
 
-      sizes[i] = Math.max(0.5, Math.min(50, count * 0.1));
+      sizes[i] = Math.max(0.5, Math.min(70, count * 0.3));
     }
 
     geometry.addAttribute('position', new THREE.BufferAttribute(positions, 3));
